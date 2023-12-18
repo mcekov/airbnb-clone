@@ -6,7 +6,7 @@ const Page = () => {
 
   return (
     <View>
-      <Text>{id}</Text>
+      <Text>Listing details</Text>
     </View>
   );
 };
