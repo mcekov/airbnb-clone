@@ -1,16 +1,56 @@
 import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
+import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
+import { useOAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
 
+enum Strategy {
+  Google = "oauth_google",
+  Apple = "oauth_apple",
+  Facebook = "oauth_facebook",
+}
+
 const Page = () => {
+  useWarmUpBrowser();
+
+  const router = useRouter();
+
+  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
+  const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
+  const { startOAuthFlow: facebookAuth } = useOAuth({
+    strategy: "oauth_facebook",
+  });
+
+  const onSelectAuth = async (strategy: Strategy) => {
+    const selectedAuth = {
+      [Strategy.Google]: googleAuth,
+      [Strategy.Apple]: appleAuth,
+      [Strategy.Facebook]: facebookAuth,
+    }[strategy];
+
+    try {
+      const { createdSessionId, setActive } = await selectedAuth();
+      console.log(`createdSessionId: `, createdSessionId);
+
+      if (createdSessionId) {
+        setActive!({ session: createdSessionId });
+      }
+    } catch (error) {
+      console.log(`OAuthERR: `, error);
+      return;
+    }
+
+    router.back();
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -49,7 +89,23 @@ const Page = () => {
           />
           <Text style={styles.btnOutlineText}>Contnue with Phone</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnOutline}>
+
+        <TouchableOpacity
+          style={styles.btnOutline}
+          onPress={() => onSelectAuth(Strategy.Google)}
+        >
+          <Ionicons
+            name="md-logo-google"
+            style={defaultStyles.btnIcon}
+            size={24}
+          />
+          <Text style={styles.btnOutlineText}>Contnue with Google</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.btnOutline}
+          onPress={() => onSelectAuth(Strategy.Apple)}
+        >
           <Ionicons
             name="md-logo-apple"
             style={defaultStyles.btnIcon}
@@ -57,15 +113,11 @@ const Page = () => {
           />
           <Text style={styles.btnOutlineText}>Contnue with Apple</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnOutline}>
-          <Ionicons
-            name="md-logo-apple"
-            style={defaultStyles.btnIcon}
-            size={24}
-          />
-          <Text style={styles.btnOutlineText}>Contnue with Google</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnOutline}>
+
+        <TouchableOpacity
+          style={styles.btnOutline}
+          onPress={() => onSelectAuth(Strategy.Facebook)}
+        >
           <Ionicons
             name="md-logo-facebook"
             style={defaultStyles.btnIcon}
@@ -91,7 +143,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   separator: {
-    fontFamily: "mon-sb",
+    fontFamily: "gotham-m",
     color: "#000",
   },
   btnOutline: {
@@ -108,7 +160,7 @@ const styles = StyleSheet.create({
   btnOutlineText: {
     color: "#000",
     fontSize: 16,
-    fontFamily: "mon-sb",
+    fontFamily: "gotham-m",
   },
 });
 

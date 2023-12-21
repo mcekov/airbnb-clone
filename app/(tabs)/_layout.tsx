@@ -11,7 +11,7 @@ const Layout = () => {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
-        tabBarLabelStyle: { fontFamily: "mon-sb" },
+        tabBarLabelStyle: { fontFamily: "gotham-m" },
       }}
     >
       <Tabs.Screen
