@@ -1,17 +1,17 @@
 import {
   View,
+  Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Text,
 } from "react-native";
 import { useRef, useState } from "react";
 import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import * as Haptics from "expo-haptics";
 
 const categories = [
   {
@@ -44,50 +44,57 @@ const categories = [
   },
 ];
 
-const ExploreHeader = () => {
+interface Props {
+  onCategoryChanged: (category: string) => void;
+}
+
+const ExploreHeader = ({ onCategoryChanged }: Props) => {
   const scrollRef = useRef<ScrollView>(null);
   const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const selectCategory = (index: number) => {
     const selected = itemsRef.current[index];
-
     setActiveIndex(index);
-    selected?.measure((x) => {
+
+    console.log(itemsRef.current);
+
+    selected?.measure((x, y) => {
       scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
     });
+
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onCategoryChanged(categories[index].name);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+    <SafeAreaView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>
         <View style={styles.actionRow}>
           <Link href={"/(modals)/booking"} asChild>
-            <TouchableOpacity style={styles.searchBtn}>
-              <Ionicons name="search" size={24} />
-
-              <View>
-                <Text style={{ fontFamily: "gotham-m" }}>Where to?</Text>
-                <Text style={{ fontFamily: "gotham" }}>
-                  Anywhere · Any week?
-                </Text>
+            <TouchableOpacity>
+              <View style={styles.searchBtn}>
+                <Ionicons name="search" size={24} />
+                <View>
+                  <Text style={{ fontFamily: "gotham-m" }}>Where to?</Text>
+                  <Text style={{ color: Colors.grey, fontFamily: "gotham" }}>
+                    Anywhere · Any week
+                  </Text>
+                </View>
               </View>
             </TouchableOpacity>
           </Link>
-
           <TouchableOpacity style={styles.filterBtn}>
             <Ionicons name="options-outline" size={24} />
           </TouchableOpacity>
         </View>
 
         <ScrollView
-          ref={scrollRef}
           horizontal
-          showsHorizontalScrollIndicator={false}
+          ref={scrollRef}
           contentContainerStyle={{
             alignItems: "center",
-            gap: 30,
+            gap: 20,
             paddingHorizontal: 16,
           }}
         >
@@ -144,6 +151,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingBottom: 16,
   },
+
   searchBtn: {
     backgroundColor: "#fff",
     flexDirection: "row",
@@ -166,7 +174,7 @@ const styles = StyleSheet.create({
   filterBtn: {
     padding: 10,
     borderWidth: 1,
-    borderColor: Colors.grey,
+    borderColor: "#A2A0A2",
     borderRadius: 24,
   },
   categoryText: {
@@ -189,7 +197,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    borderBottomColor: Colors.primary,
+    borderBottomColor: "#000",
     borderBottomWidth: 2,
     paddingBottom: 8,
   },
