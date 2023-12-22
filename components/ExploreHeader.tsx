@@ -57,8 +57,6 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
     const selected = itemsRef.current[index];
     setActiveIndex(index);
 
-    console.log(itemsRef.current);
-
     selected?.measure((x, y) => {
       scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
     });
@@ -90,6 +88,7 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
         </View>
 
         <ScrollView
+          showsHorizontalScrollIndicator={false}
           horizontal
           ref={scrollRef}
           contentContainerStyle={{
