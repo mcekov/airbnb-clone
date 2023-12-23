@@ -54,7 +54,7 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const selectCategory = (index: number) => {
-    const selected = itemsRef.current[index];
+    // const selected = itemsRef.current[index];
     setActiveIndex(index);
 
     // TODO: fix mesure
