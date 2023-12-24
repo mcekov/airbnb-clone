@@ -1,14 +1,20 @@
 import { View, Text, Button, StyleSheet } from "react-native";
 import { SignedIn, useAuth } from "@clerk/clerk-expo";
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
+import { useLayoutEffect } from "react";
+import Colors from "@/constants/Colors";
+import { defaultStyles } from "@/constants/Styles";
 
 const Page = () => {
   const { signOut, isSignedIn } = useAuth();
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({});
+  }, []);
 
   return (
-    <View>
-      <Text>Profile</Text>
-
+    <View style={defaultStyles.centerElement}>
       <Button title="logout" onPress={() => signOut()} />
       {!isSignedIn && (
         <Link href={"/(modals)/login"}>

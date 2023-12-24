@@ -42,4 +42,9 @@ export const defaultStyles = StyleSheet.create({
     borderTopColor: Colors.grey,
     borderTopWidth: StyleSheet.hairlineWidth,
   },
+  centerElement: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

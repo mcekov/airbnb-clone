@@ -9,6 +9,11 @@ import Animated, {
   FadeInRight,
   FadeOutLeft,
 } from "react-native-reanimated";
+import {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+} from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet";
 
 interface Props {
   listings: any[];
@@ -18,7 +23,7 @@ interface Props {
 
 const Listings = ({ listings: items, category, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
-  const listRef = useRef<FlatList>(null);
+  const listRef = useRef<BottomSheetFlatListMethods>(null);
 
   useEffect(() => {
     if (refresh) {
@@ -74,10 +79,13 @@ const Listings = ({ listings: items, category, refresh }: Props) => {
 
   return (
     <View style={defaultStyles.container}>
-      <FlatList
+      <BottomSheetFlatList
         ref={listRef}
         data={loading ? [] : items}
         renderItem={renderRow}
+        ListHeaderComponent={
+          <Text style={styles.info}>{items.length} homes</Text>
+        }
       />
     </View>
   );
@@ -92,6 +100,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 300,
     borderRadius: 10,
+  },
+  info: {
+    textAlign: "center",
+    fontFamily: "gotham-b",
+    marginTop: 4,
   },
 });
 

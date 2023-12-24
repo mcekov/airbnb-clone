@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { View, Text, StyleSheet, Dimensions, Image, Share } from "react-native";
 import Animated, {
   SlideInDown,
@@ -82,7 +82,12 @@ const Page = () => {
       ),
       headerLeft: () => (
         <TouchableOpacity style={styles.roundButton}>
-          <Ionicons name="chevron-back" size={22} color={"#000"} />
+          <Ionicons
+            name="chevron-back"
+            size={22}
+            color={"#000"}
+            onPress={() => router.back()}
+          />
         </TouchableOpacity>
       ),
     });
