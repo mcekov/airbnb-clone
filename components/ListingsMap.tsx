@@ -9,8 +9,8 @@ interface Props {
 }
 
 const INITIAL_REGION = {
-  latitude: 51.1642292,
-  longitude: 10.4541194,
+  latitude: 52.52437,
+  longitude: 13.41053,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
