@@ -1,11 +1,59 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { BlurView } from "expo-blur";
 import Colors from "@/constants/Colors";
+import Animated, { SlideInDown } from "react-native-reanimated";
+import { defaultStyles } from "@/constants/Styles";
+import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 const Page = () => {
+  const router = useRouter();
+
+  const onClearAll = () => {};
+  const on = () => {};
   return (
     <BlurView intensity={70} tint="light" style={styles.container}>
       <Text>Booking</Text>
+
+      <Animated.View
+        style={defaultStyles.footer}
+        entering={SlideInDown.delay(200)}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity
+            onPress={onClearAll}
+            style={{ justifyContent: "center" }}
+          >
+            <Text
+              style={{
+                fontFamily: "gotham-m",
+                fontSize: 18,
+                textDecorationLine: "underline",
+              }}
+            >
+              Clear all
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={[defaultStyles.btn, { paddingLeft: 50, paddingRight: 20 }]}
+          >
+            <Ionicons
+              name="search-outline"
+              size={24}
+              color={"#fff"}
+              style={defaultStyles.btnIcon}
+            />
+            <Text style={[defaultStyles.btnText]}>Search</Text>
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
     </BlurView>
   );
 };
