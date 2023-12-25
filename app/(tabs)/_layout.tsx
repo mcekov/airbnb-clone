@@ -62,10 +62,6 @@ const Layout = () => {
         name="profile"
         options={{
           title: "Profile",
-          headerTitleStyle: {
-            color: Colors.grey,
-          },
-          headerTitleAlign: "center",
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle-outline" color={color} size={size} />

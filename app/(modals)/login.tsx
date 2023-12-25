@@ -11,6 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 enum Strategy {
   Google = "oauth_google",
@@ -133,7 +134,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 26,
-
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingVertical: 50,
