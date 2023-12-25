@@ -38,17 +38,15 @@ const Page = () => {
 
     try {
       const { createdSessionId, setActive } = await selectedAuth();
-      console.log(`createdSessionId: `, createdSessionId);
 
       if (createdSessionId) {
         setActive!({ session: createdSessionId });
       }
     } catch (error) {
       console.log(`OAuthERR: `, error);
-      return;
+    } finally {
+      router.push("/(tabs)/profile");
     }
-
-    router.back();
   };
 
   return (
@@ -135,6 +133,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 26,
+
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 50,
+    paddingHorizontal: 30,
+    marginTop: 10,
   },
   separatorView: {
     flexDirection: "row",
