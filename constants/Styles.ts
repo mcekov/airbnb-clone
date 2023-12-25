@@ -7,10 +7,10 @@ export const defaultStyles = StyleSheet.create({
     backgroundColor: "#FDFFFF",
   },
   inputField: {
-    height: 44,
+    height: 40,
     borderWidth: 1,
     borderColor: "#ABABAB",
-    borderRadius: 8,
+    borderRadius: 6,
     padding: 10,
     backgroundColor: "#fff",
   },
