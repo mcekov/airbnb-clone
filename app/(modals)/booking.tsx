@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  TextInput,
+} from "react-native";
 import { BlurView } from "expo-blur";
 import Colors from "@/constants/Colors";
 import Animated, {
@@ -11,7 +19,6 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { places } from "@/assets/data/places";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
 
 const guestsGropus = [
   {
@@ -88,33 +95,38 @@ const Page = () => {
                 placeholderTextColor={Colors.grey}
               />
             </View>
-
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.placesContainer}
-            >
-              {places.map((item, index) => (
-                <TouchableOpacity
-                  onPress={() => setSelectedPlace(index)}
-                  key={index}
-                >
-                  <Image
-                    source={item.img}
-                    style={
-                      selectedPlace == index
-                        ? styles.placeSelected
-                        : styles.place
-                    }
-                  />
-                  <Text style={{ fontFamily: "gotham", paddingTop: 6 }}>
-                    {item.title}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
           </Animated.View>
         )}
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.placesContainer}
+        >
+          {places.map((item, index) => (
+            <TouchableOpacity
+              onPress={() => setSelectedPlace(index)}
+              key={index}
+            >
+              <Image
+                source={item.img}
+                style={
+                  selectedPlace == index ? styles.placeSelected : styles.place
+                }
+              />
+              <Text
+                style={[
+                  selectedPlace == index
+                    ? { fontFamily: "gotham-m" }
+                    : { fontFamily: "gotham" },
+                  { paddingTop: 6 },
+                ]}
+              >
+                {item.title}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
 
       <View style={styles.card}>
@@ -313,7 +325,7 @@ const styles = StyleSheet.create({
   },
   cardBody: {
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingBottom: 10,
   },
   cardPreview: {
     flexDirection: "row",
@@ -327,10 +339,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
-    borderWidth: 1,
     borderColor: "#ABABAB",
+    borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 16,
   },
   searchIcon: {
     padding: 10,
@@ -343,18 +354,20 @@ const styles = StyleSheet.create({
   placesContainer: {
     flexDirection: "row",
     gap: 25,
+    paddingLeft: 20,
+    marginBottom: 30,
   },
   place: {
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
     borderRadius: 10,
   },
   placeSelected: {
     borderColor: Colors.grey,
     borderWidth: 2,
     borderRadius: 10,
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
   },
   previewText: {
     fontFamily: "gotham-m",
