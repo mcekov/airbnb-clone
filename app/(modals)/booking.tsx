@@ -48,7 +48,7 @@ const AnimatedTouchableOpacity =
 
 const Page = () => {
   const router = useRouter();
-  const [openCard, setOpenCard] = useState(0);
+  const [openCard, setOpenCard] = useState(1);
   const [selectedPlace, setSelectedPlace] = useState(0);
 
   const [groups, setGroups] = useState(guestsGropus);
@@ -77,56 +77,59 @@ const Page = () => {
 
         {openCard == 0 && <Text style={styles.cardHeader}>Where to?</Text>}
         {openCard == 0 && (
-          <Animated.View
-            entering={FadeIn}
-            exiting={FadeOut}
-            style={styles.cardBody}
-          >
-            <View style={styles.searchSection}>
-              <Ionicons
-                style={styles.searchIcon}
-                name="ios-search"
-                size={20}
-                color="#000"
-              />
-              <TextInput
-                style={styles.inputField}
-                placeholder="Search destinations"
-                placeholderTextColor={Colors.grey}
-              />
-            </View>
-          </Animated.View>
-        )}
-
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.placesContainer}
-        >
-          {places.map((item, index) => (
-            <TouchableOpacity
-              onPress={() => setSelectedPlace(index)}
-              key={index}
+          <>
+            <Animated.View
+              entering={FadeIn}
+              exiting={FadeOut}
+              style={styles.cardBody}
             >
-              <Image
-                source={item.img}
-                style={
-                  selectedPlace == index ? styles.placeSelected : styles.place
-                }
-              />
-              <Text
-                style={[
-                  selectedPlace == index
-                    ? { fontFamily: "gotham-m" }
-                    : { fontFamily: "gotham" },
-                  { paddingTop: 6 },
-                ]}
-              >
-                {item.title}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+              <View style={styles.searchSection}>
+                <Ionicons
+                  style={styles.searchIcon}
+                  name="ios-search"
+                  size={20}
+                  color="#000"
+                />
+                <TextInput
+                  style={styles.inputField}
+                  placeholder="Search destinations"
+                  placeholderTextColor={Colors.grey}
+                />
+              </View>
+            </Animated.View>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.placesContainer}
+            >
+              {places.map((item, index) => (
+                <TouchableOpacity
+                  onPress={() => setSelectedPlace(index)}
+                  key={index}
+                >
+                  <Image
+                    source={item.img}
+                    style={
+                      selectedPlace == index
+                        ? styles.placeSelected
+                        : styles.place
+                    }
+                  />
+                  <Text
+                    style={[
+                      selectedPlace == index
+                        ? { fontFamily: "gotham-m" }
+                        : { fontFamily: "gotham" },
+                      { paddingTop: 6 },
+                    ]}
+                  >
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </>
+        )}
       </View>
 
       <View style={styles.card}>
@@ -143,7 +146,12 @@ const Page = () => {
         )}
 
         {openCard === 1 && (
-          <Text style={styles.cardHeader}>When's your trip?</Text>
+          <>
+            <Animated.Text style={styles.cardHeader}>
+              When's your trip?
+            </Animated.Text>
+            <Animated.View style={styles.cardBody}></Animated.View>
+          </>
         )}
         {openCard == 1 && (
           <Animated.View style={styles.cardBody}>
