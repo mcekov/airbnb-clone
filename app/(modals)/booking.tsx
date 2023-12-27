@@ -208,6 +208,23 @@ const Page = () => {
                     <Text>{item.name}</Text>
                     <Text>{item.text}</Text>
                   </View>
+
+                  <View
+                    key={index}
+                    style={{
+                      flexDirection: "row",
+                      gap: 20,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <TouchableOpacity>
+                      <Text>1</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Text>1</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               ))}
             </Animated.View>
