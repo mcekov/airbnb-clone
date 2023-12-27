@@ -58,8 +58,6 @@ const Page = () => {
     setSelectedPlace(0);
   };
 
-  const on = () => {};
-
   return (
     <BlurView intensity={70} tint="light" style={styles.container}>
       <View style={styles.card}>
@@ -67,15 +65,24 @@ const Page = () => {
           <AnimatedTouchableOpacity
             onPress={() => setOpenCard(0)}
             style={styles.cardPreview}
-            entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(200)}
+            entering={FadeIn.duration(100)}
+            exiting={FadeOut.duration(100)}
           >
             <Text style={styles.previewText}>Where?</Text>
             <Text style={styles.previewdDate}>I'm flexible</Text>
           </AnimatedTouchableOpacity>
         )}
 
-        {openCard == 0 && <Text style={styles.cardHeader}>Where to?</Text>}
+        {openCard == 0 && (
+          <Animated.Text
+            entering={FadeIn.duration(100)}
+            exiting={FadeOut.duration(100)}
+            style={styles.cardHeader}
+          >
+            Where to?
+          </Animated.Text>
+        )}
+
         {openCard == 0 && (
           <>
             <Animated.View
@@ -137,8 +144,8 @@ const Page = () => {
           <AnimatedTouchableOpacity
             onPress={() => setOpenCard(1)}
             style={styles.cardPreview}
-            entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(200)}
+            entering={FadeIn.duration(100)}
+            exiting={FadeOut.duration(100)}
           >
             <Text style={styles.previewText}>When</Text>
             <Text style={styles.previewdDate}>Any week</Text>
@@ -175,8 +182,8 @@ const Page = () => {
           <AnimatedTouchableOpacity
             onPress={() => setOpenCard(2)}
             style={styles.cardPreview}
-            entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(200)}
+            entering={FadeIn.duration(100)}
+            exiting={FadeOut.duration(100)}
           >
             <Text style={styles.previewText}>Who</Text>
             <Text style={styles.previewdDate}>Add guests</Text>
