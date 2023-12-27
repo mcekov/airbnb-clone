@@ -20,6 +20,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { places } from "@/assets/data/places";
 
+// @ts-ignore
+import DatePicker from "react-native-modern-datepicker";
+
 const guestsGropus = [
   {
     name: "Adults",
@@ -48,10 +51,13 @@ const AnimatedTouchableOpacity =
 
 const Page = () => {
   const router = useRouter();
-  const [openCard, setOpenCard] = useState(1);
+  const [openCard, setOpenCard] = useState(2);
   const [selectedPlace, setSelectedPlace] = useState(0);
 
   const [groups, setGroups] = useState(guestsGropus);
+  const today = new Date().toISOString().substring(0, 10);
+
+  console.log(today);
 
   const onClearAll = () => {
     setOpenCard(0);
@@ -162,17 +168,17 @@ const Page = () => {
         )}
         {openCard == 1 && (
           <Animated.View style={styles.cardBody}>
-            {/*  <DatePicker
+            <DatePicker
               options={{
                 defaultFont: "gotham",
-                headerFont: "geotham-m",
+                headerFont: "gotham-m",
                 mainColor: Colors.primary,
                 borderColor: "transparent",
               }}
               current={today}
               selected={today}
               mode={"calendar"}
-            /> */}
+            />
           </Animated.View>
         )}
       </View>
@@ -190,8 +196,25 @@ const Page = () => {
           </AnimatedTouchableOpacity>
         )}
 
-        {openCard == 2 && <Text style={styles.cardHeader}>Who's coming?</Text>}
         {openCard == 2 && (
+          <>
+            <Animated.Text style={styles.cardHeader}>
+              Who's coming?
+            </Animated.Text>
+            <Animated.View style={{}}>
+              {groups.map((item, index) => (
+                <View key={index} style={styles.guestItem}>
+                  <View>
+                    <Text>{item.name}</Text>
+                    <Text>{item.text}</Text>
+                  </View>
+                </View>
+              ))}
+            </Animated.View>
+          </>
+        )}
+
+        {/*   {openCard == 2 && (
           <Animated.View style={styles.cardBody}>
             {groups.map((item, index) => (
               <View
@@ -268,7 +291,7 @@ const Page = () => {
               </View>
             ))}
           </Animated.View>
-        )}
+        )} */}
       </View>
 
       <Animated.View
