@@ -157,8 +157,8 @@ const Page = () => {
           <Animated.View style={styles.cardBody}>
             {/*  <DatePicker
               options={{
-                defaultFont: "mon",
-                headerFont: "mon-sb",
+                defaultFont: "gotham",
+                headerFont: "geotham-m",
                 mainColor: Colors.primary,
                 borderColor: "transparent",
               }}
