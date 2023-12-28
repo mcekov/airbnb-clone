@@ -201,9 +201,15 @@ const Page = () => {
             <Animated.Text style={styles.cardHeader}>
               Who's coming?
             </Animated.Text>
-            <Animated.View style={{}}>
+            <Animated.View style={styles.cardBody}>
               {groups.map((item, index) => (
-                <View key={index} style={styles.guestItem}>
+                <View
+                  key={index}
+                  style={[
+                    styles.guestItem,
+                    index + 1 < guestsGropus.length ? styles.itemBorder : null,
+                  ]}
+                >
                   <View>
                     <Text>{item.name}</Text>
                     <Text>{item.text}</Text>
@@ -218,11 +224,47 @@ const Page = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <TouchableOpacity>
-                      <Text>1</Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        const newGroups = [...groups];
+                        newGroups[index].count =
+                          newGroups[index].count > 0
+                            ? newGroups[index].count - 1
+                            : 0;
+                        setGroups(newGroups);
+                      }}
+                    >
+                      <Ionicons
+                        name="remove-circle-outline"
+                        size={26}
+                        color={
+                          groups[index].count > 0 ? Colors.grey : "#cdcdcd"
+                        }
+                      />
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                      <Text>1</Text>
+                    <Text
+                      style={{
+                        fontFamily: "gotham",
+                        fontSize: 16,
+                        minWidth: 18,
+                        textAlign: "center",
+                      }}
+                    >
+                      {item.count}
+                    </Text>
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        const newGroups = [...groups];
+                        newGroups[index].count++;
+                        setGroups(newGroups);
+                      }}
+                    >
+                      <Ionicons
+                        name="add-circle-outline"
+                        size={26}
+                        color={Colors.grey}
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
