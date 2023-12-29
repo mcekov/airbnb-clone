@@ -51,17 +51,16 @@ const AnimatedTouchableOpacity =
 
 const Page = () => {
   const router = useRouter();
-  const [openCard, setOpenCard] = useState(2);
+  const [openCard, setOpenCard] = useState(0);
   const [selectedPlace, setSelectedPlace] = useState(0);
 
   const [groups, setGroups] = useState(guestsGropus);
   const today = new Date().toISOString().substring(0, 10);
 
-  console.log(today);
-
   const onClearAll = () => {
     setOpenCard(0);
     setSelectedPlace(0);
+    setGroups(guestsGropus);
   };
 
   return (
@@ -131,9 +130,8 @@ const Page = () => {
                   <Text
                     style={[
                       selectedPlace == index
-                        ? { fontFamily: "gotham-m" }
-                        : { fontFamily: "gotham" },
-                      { paddingTop: 6 },
+                        ? { fontFamily: "gotham-m", paddingTop: 6 }
+                        : null,
                     ]}
                   >
                     {item.title}
@@ -211,8 +209,12 @@ const Page = () => {
                   ]}
                 >
                   <View>
-                    <Text>{item.name}</Text>
-                    <Text>{item.text}</Text>
+                    <Text style={{ fontFamily: "gotham-m", fontSize: 14 }}>
+                      {item.name}
+                    </Text>
+                    <Text style={{ fontFamily: "gotham", fontSize: 14 }}>
+                      {item.text}
+                    </Text>
                   </View>
 
                   <View
@@ -272,85 +274,6 @@ const Page = () => {
             </Animated.View>
           </>
         )}
-
-        {/*   {openCard == 2 && (
-          <Animated.View style={styles.cardBody}>
-            {groups.map((item, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.guestItem,
-                  index + 1 < guestsGropus.length ? styles.itemBorder : null,
-                ]}
-              >
-                <View>
-                  <Text style={{ fontFamily: "gotham-m", fontSize: 14 }}>
-                    {item.name}
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: "gotham",
-                      fontSize: 14,
-                      color: Colors.grey,
-                    }}
-                  >
-                    {item.text}
-                  </Text>
-                </View>
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    gap: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => {
-                      const newGroups = [...groups];
-                      newGroups[index].count =
-                        newGroups[index].count > 0
-                          ? newGroups[index].count - 1
-                          : 0;
-
-                      setGroups(newGroups);
-                    }}
-                  >
-                    <Ionicons
-                      name="remove-circle-outline"
-                      size={26}
-                      color={groups[index].count > 0 ? Colors.grey : "#cdcdcd"}
-                    />
-                  </TouchableOpacity>
-                  <Text
-                    style={{
-                      fontFamily: "gotham",
-                      fontSize: 16,
-                      minWidth: 18,
-                      textAlign: "center",
-                    }}
-                  >
-                    {item.count}
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      const newGroups = [...groups];
-                      newGroups[index].count++;
-                      setGroups(newGroups);
-                    }}
-                  >
-                    <Ionicons
-                      name="add-circle-outline"
-                      size={26}
-                      color={Colors.grey}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ))}
-          </Animated.View>
-        )} */}
       </View>
 
       <Animated.View
